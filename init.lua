@@ -665,7 +665,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -710,19 +710,19 @@ require('lazy').setup({
   },
 
   { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    --   --   -- Change the name of the colorscheme plugin below, and then
+    --   --   -- change the command in the config to whatever the name of that colorscheme is.
+    --   --   --
+    --   --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      --     --     -- Load the colorscheme here.
+      --     --     -- Like many other themes, this one has different styles, and you could load
+      --     --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
+      --     --
+      --     --     -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
@@ -828,7 +828,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'plugins.debug',
+  --  require 'plugins.debug',
   require 'plugins.indent_line',
   require 'plugins.lint',
   --  require 'plugins.autopairs',
@@ -841,6 +841,8 @@ require('lazy').setup({
   require 'plugins.surround', -- adds gitsigns recommend keymaps
   require 'plugins.multi', -- adds gitsigns recommend keymaps
   require 'plugins.tree', -- adds gitsigns recommend keymaps
+  -- require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
+  -- require 'plugins.theme-poimandresg', -- adds gitsigns recommend keymaps
   -- /030 neo-tree.lua
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`

@@ -78,6 +78,7 @@ vim.keymap.set('n', '<C-u>S', '')
 --Easiest way same like vscode. Add below line to .vimrc
 --"Ctrl+Shift+up move line above"
 --"Ctrl+Shift+down move line below
+vim.keymap.set({ 'n', 'v' }, '<leader>m', '`')
 vim.keymap.set({ 'n', 'v' }, '<C-k>', ':m -2<CR>') --nmap <C-S-Up> :m -2<CR>
 vim.keymap.set({ 'v', 'n' }, '<C-j>', ':m +1<CR>') --nmap <C-S-Up> :m -2<CR>
 -- nmap <C-S-Down> :m +1<CR>
@@ -111,18 +112,26 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set({ 'v', 'i' }, 'lkj', '<Esc>', { desc = 'Exit insert mode shortcut' })
+vim.keymap.set({ 'v', 'i', 't', 'c', 'x' }, 'lkj', '<Esc>', { desc = 'Exit insert mode shortcut' })
 -- increment/decrement numbers
 vim.keymap.set('n', '<leader>=', '<C-a>', { desc = 'Increment number' }) -- increment
 vim.keymap.set('n', '<leader>-', '<C-x>', { desc = 'Decrement number' }) -- decrement
-vim.keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' }) -- split window vertically
-vim.keymap.set('n', '<leader>sh', '<C-w>s', { desc = 'Split window horizontally' }) -- split window horizontally
-vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = 'Make splits equal size' }) -- make split windows equal width & height
-vim.keymap.set('n', '<leader>sx', '<cmd>close<CR>', { desc = 'Close current split' }) -- close current split window
+vim.keymap.set('n', '<leader>sl', '<C-w>v', { desc = 'Split window vertically' }) -- split window vertically
+vim.keymap.set('n', '<leader>sj', '<C-w>s', { desc = 'Split window horizontally' }) -- split window horizontally
+vim.keymap.set('n', '<leader>sh', '<C-w>=', { desc = 'Make splits equal size' }) -- make split windows equal width & height
+vim.keymap.set('n', '<leader>sa', '<cmd>close<CR>', { desc = 'Close current split' }) -- close current split window
+vim.keymap.set('n', '<leader>ss', '<cmd>close<CR>', { desc = 'Close current split' }) -- close current split window
+vim.keymap.set('n', '<leader>sd', '<cmd>close<CR>', { desc = 'Close current split' }) -- close current split window
 vim.keymap.set('n', '<leader>to', '<cmd>tabnew<CR>', { desc = 'Open new tab' }) -- open new tab
+vim.keymap.set('n', '<leader>tl', '<cmd>tabnew<CR>', { desc = 'Open new tab' }) -- open new tab
 vim.keymap.set('n', '<leader>tx', '<cmd>tabclose<CR>', { desc = 'Close current tab' }) -- close current tab
 vim.keymap.set('n', '<leader>tn', '<cmd>tabn<CR>', { desc = 'Go to next tab' }) --  go to next tab
+vim.keymap.set('n', '’', '<cmd>tabn<CR>', { desc = 'Go to next tab' }) --  go to next tab
 vim.keymap.set('n', '<leader>tp', '<cmd>tabp<CR>', { desc = 'Go to previous tab' }) --  go to previous tab
+-- maybe do option shift curly brackets?
+-- maybe do tj
+vim.keymap.set('n', '”', '<cmd>tabp<CR>', { desc = 'Go to previous tab' }) --  go to previous tab
+vim.keymap.set('n', '<leader>tj', '<cmd>tabp<CR>', { desc = 'Go to previous tab' }) --  go to previous tab
 vim.keymap.set('n', '<leader>tf', '<cmd>tabnew %<CR>', { desc = 'Open current buffer in new tab' }) --  move current buffer to new tab
 
 -- Keybinds to make split navigation easier.

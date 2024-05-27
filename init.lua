@@ -117,6 +117,8 @@ vim.keymap.set({ 'v', 'i', 't', 'c', 'x' }, 'lkj', '<Esc>', { desc = 'Exit inser
 vim.keymap.set('n', '<leader>=', '<C-a>', { desc = 'Increment number' }) -- increment
 vim.keymap.set('n', '<leader>-', '<C-x>', { desc = 'Decrement number' }) -- decrement
 vim.keymap.set('n', '<leader>sl', '<C-w>v', { desc = 'Split window vertically' }) -- split window vertically
+vim.keymap.set('n', '<leader>s-', ':vertical resize -10<CR>', { desc = 'Split size -' })
+vim.keymap.set('n', '<leader>s=', ':vertical resize +10<CR>', { desc = 'Split size -' })
 vim.keymap.set('n', '<leader>sj', '<C-w>s', { desc = 'Split window horizontally' }) -- split window horizontally
 vim.keymap.set('n', '<leader>sh', '<C-w>=', { desc = 'Make splits equal size' }) -- make split windows equal width & height
 vim.keymap.set('n', '<leader>sa', '<cmd>close<CR>', { desc = 'Close current split' }) -- close current split window
@@ -724,6 +726,13 @@ require('lazy').setup({
     --   --   --
     --   --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       --     --     -- Load the colorscheme here.

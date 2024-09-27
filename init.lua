@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -16,14 +16,14 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
--- Enable mouse ode, can be useful for resizing splits for example!
+-- Enable mouse ode,a can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
+--  Remove this option if you want your OS clipboard toaaaa remain independent.
 --  See `:help 'clipboard'`
 --  pim.opt.clipboard = 'unnamedplus'
 
@@ -55,7 +55,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = ' ' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -65,7 +65,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 999
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -96,13 +96,17 @@ vim.keymap.set('i', '<D-right>', 'g$') -- TODO: have this fire a command to go t
 vim.keymap.set('n', '<D-j>', 'G')
 vim.keymap.set('n', '<D-k>', 'gg')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<leader>aa', ":lua require('harpoon.mark').set_current_at(1)<CR>")
+vim.keymap.set('n', '<leader>as', ":lua require('harpoon.mark').set_current_at(2)<CR>")
+vim.keymap.set('n', '<leader>ad', ':lua require("harpoon.mark").set_current_at(3)<CR>')
+vim.keymap.set('n', '<leader>af', ":lua require('harpoon.mark').set_current_at(4)<CR>")
 vim.keymap.set('n', '<leader>P', '"*P', { desc = 'Easier system paste' })
 vim.keymap.set('n', '<leader>p', '"*p', { desc = 'Easier system paste' })
 vim.keymap.set('n', '<leader>y', '"*y', { desc = 'Easier system copy' })
 --- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -113,9 +117,13 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set({ 'v', 'i', 't', 'c', 'x' }, 'lkj', '<Esc>', { desc = 'Exit insert mode shortcut' })
+vim.keymap.set({ 'v', 'i', 't', 'c', 'x' }, 'klj', '<Esc>', { desc = 'Exit insert mode shortcut' })
+vim.keymap.set({ 'v', 'i', 't', 'c', 'x' }, 'jj', '<Esc>', { desc = 'Exit insert mode shortcut' })
 -- increment/decrement numbers
-vim.keymap.set('n', '<leader>=', '<C-a>', { desc = 'Increment number' }) -- increment
-vim.keymap.set('n', '<leader>-', '<C-x>', { desc = 'Decrement number' }) -- decrement
+-- 1
+vim.keymap.set('n', '<leader>=', '<C-i>', { desc = 'Increment number' }) -- increment
+vim.keymap.set('n', '<leader>-', '<C-d>', { desc = 'Decrement number' }) -- decrement
+vim.keymap.set('n', '<leader>z', 'zfa}', { desc = 'Shortcut to fold' })
 vim.keymap.set('n', '<leader>sl', '<C-w>v', { desc = 'Split window vertically' }) -- split window vertically
 vim.keymap.set('n', '<leader>s-', ':vertical resize -10<CR>', { desc = 'Split size -' })
 vim.keymap.set('n', '<leader>s=', ':vertical resize +10<CR>', { desc = 'Split size -' })
@@ -323,8 +331,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>tk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ts', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>fn', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>t.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -522,7 +531,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
         --
 
         lua_ls = {
@@ -558,9 +567,23 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensured_installed = {
+          'lua_ls',
+          'pyright',
+          'ruff_lsp',
+          'tsserver',
+          'eslint',
+          'tailwindcss',
+          'emmet_language_server',
+          'jsonls',
+        },
         handlers = {
+
           function(server_name)
             local server = servers[server_name] or {}
+            if server_name == 'tsserver' then
+              server_name = 'ts_ls'
+            end
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
@@ -577,7 +600,7 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>F',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
@@ -738,7 +761,7 @@ require('lazy').setup({
       --     --     -- Load the colorscheme here.
       --     --     -- Like many other themes, this one has different styles, and you could load
       --     --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-storm'
       --     --
       --     --     -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -746,7 +769,12 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -850,16 +878,17 @@ require('lazy').setup({
   require 'plugins.indent_line',
   require 'plugins.lint',
   --  require 'plugins.autopairs',
-  --  require 'plugins.health',
+  --require 'plugins.health',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns', -- adds gitsigns recommend keymaps
-  require 'plugins.flutter', -- adds gitsigns recommend keymaps
+  -- require 'plugins.flutter', -- adds gitsigns recommend keymaps
   require 'plugins.harpoon', -- adds gitsigns recommend keymaps
+  require 'plugins.tailwind',
   require 'plugins.oil', -- adds gitsigns recommend keymaps
   require 'plugins.surround', -- adds gitsigns recommend keymaps
   require 'plugins.multi', -- adds gitsigns recommend keymaps
   require 'plugins.tree', -- adds gitsigns recommend keymaps
-  -- require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
+  require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
   -- require 'plugins.theme-poimandresg', -- adds gitsigns recommend keymaps
   -- /030 neo-tree.lua
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.

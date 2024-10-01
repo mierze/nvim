@@ -594,7 +594,7 @@ require('lazy').setup({
       }
     end,
   },
-
+  -- { 'VonHeikemen/lsp-zero.nvim', branch = 'v4.x' },
   { -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
@@ -877,7 +877,7 @@ require('lazy').setup({
   --  require 'plugins.debug',
   require 'plugins.indent_line',
   require 'plugins.lint',
-  --  require 'plugins.autopairs',
+  require 'plugins.autopairs',
   --require 'plugins.health',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -914,6 +914,27 @@ require('lazy').setup({
     },
   },
 })
+-- local lsp_zero = require('lsp-zero')
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- lsp_attach is where you enable features that only work
+-- if there is a language server active in the file
+local lsp_attach = function(client, bufnr)
+  local opts = { buffer = bufnr }
+
+  vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+  vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+  vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+  vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+  vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+  vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+  vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+  vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+  vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+end
+
+-- lsp_zero.extend_lspconfig {
+--   sign_text = true,
+--   lsp_attach = lsp_attach,
+--   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+-- }

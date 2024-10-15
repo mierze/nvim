@@ -4,7 +4,7 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-
+vim.opt.conceallevel = 1
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -78,7 +78,8 @@ vim.keymap.set('n', '<C-u>S', '')
 --Easiest way same like vscode. Add below line to .vimrc
 --"Ctrl+Shift+up move line above"
 --"Ctrl+Shift+down move line below
-vim.keymap.set({ 'n', 'v' }, '<leader>m', '`')
+vim.keymap.set({ 'n', 'v' }, '<leader>m', 'm')
+vim.keymap.set({ 'n', 'v' }, 'm', '`')
 vim.keymap.set({ 'n', 'v' }, '<C-k>', ':m -2<CR>') --nmap <C-S-Up> :m -2<CR>
 vim.keymap.set({ 'v', 'n' }, '<C-j>', ':m +1<CR>') --nmap <C-S-Up> :m -2<CR>
 -- nmap <C-S-Down> :m +1<CR>
@@ -95,6 +96,8 @@ vim.keymap.set('i', '<D-left>', 'g0') -- TODO: have this fire a command to go to
 vim.keymap.set('i', '<D-right>', 'g$') -- TODO: have this fire a command to go to end of line
 vim.keymap.set('n', '<D-j>', 'G')
 vim.keymap.set('n', '<D-k>', 'gg')
+vim.keymap.set({ 'n', 'i' }, '<D-s>', '<ESC>:w<CR>')
+vim.keymap.set({ 'n', 'i' }, '<D-S>', '<ESC>:wa!<CR>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>aa', ":lua require('harpoon.mark').set_current_at(1)<CR>")
 vim.keymap.set('n', '<leader>as', ":lua require('harpoon.mark').set_current_at(2)<CR>")
@@ -258,7 +261,23 @@ require('lazy').setup({
 
   -- NOTE: Plugins can specify dependencies.
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
-
+  -- {
+  --   'pasky/claude.vim',
+  --   lazy = false,
+  --   config = function()
+  --     -- Load API key from environment variable
+  --     local api_key = os.getenv 'ANTHROPIC_API_KEY'
+  --     if api_key then
+  --       vim.g.claude_api_key = api_key
+  --     else
+  --       vim.notify('ANTHROPIC_API_KEY environment variable is not set', vim.log.levels.WARN)
+  --     end
+  --
+  --     -- Add keymaps (the default conflict with NVChad.  Skip if you want)
+  --     vim.keymap.set('v', '<leader>Ci', ":'<,'>ClaudeImplement ", { noremap = true, desc = 'Claude Implement' })
+  --     vim.keymap.set('n', '<leader>Cc', ':ClaudeChat<CR>', { noremap = true, silent = true, desc = 'Claude Chat' })
+  --   end,
+  -- },
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -468,39 +487,39 @@ require('lazy').setup({
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-              callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-              end,
-            })
-          end
+          -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+          -- if client and client.server_capabilities.documentHighlightProvider then
+          --   local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = true })
+          --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.document_highlight,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.clear_references,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd('LspDetach', {
+          --     group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+          --     callback = function(event2)
+          --       vim.lsp.buf.clear_references()
+          --       vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+          --     end,
+          --   })
+          -- end
 
           -- The following autocommand is used to enable inlay hints in your
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, '[T]oggle Inlay [H]ints')
-          end
+          -- if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+          --   map('<leader>th', function()
+          --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          --   end, '[T]oggle Inlay [H]ints')
+          -- end
         end,
       })
 
@@ -742,7 +761,7 @@ require('lazy').setup({
       }
     end,
   },
-
+  -- require 'plugins.theme-nightfox', -- adds gitsigns recommend keymaps
   { -- You can easily change to a different colorscheme.
     --   --   -- Change the name of the colorscheme plugin below, and then
     --   --   -- change the command in the config to whatever the name of that colorscheme is.
@@ -750,6 +769,7 @@ require('lazy').setup({
     --   --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     opts = {
+      style = 'moon',
       transparent = true,
       styles = {
         sidebars = 'transparent',
@@ -758,12 +778,7 @@ require('lazy').setup({
     },
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      --     --     -- Load the colorscheme here.
-      --     --     -- Like many other themes, this one has different styles, and you could load
-      --     --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-storm'
-      --     --
-      --     --     -- You can configure highlights by doing something like:
+      vim.cmd 'colorscheme tokyonight-night'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
@@ -785,7 +800,7 @@ require('lazy').setup({
       --     --  - va)  - [V]isually select [A]round [)]paren
       --     --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --     --  - ci'  - [C]hange [I]nside [']quote
-      --     require('mini.ai').setup { n_lines = 500 }
+      require('mini.ai').setup { n_lines = 500 }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -833,14 +848,14 @@ require('lazy').setup({
         'typescript',
         'lua',
         'luadoc',
-        'markdown',
+        --'markdown',
         'vim',
         'vimdoc',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
-        enable = true,
+        enable = false,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -876,8 +891,9 @@ require('lazy').setup({
   --
   --  require 'plugins.debug',
   require 'plugins.indent_line',
-  require 'plugins.lint',
-  require 'plugins.autopairs',
+  -- require 'plugins.lint',
+  require 'plugins.obsidian',
+  -- require 'plugins.autopairs',
   --require 'plugins.health',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -888,7 +904,8 @@ require('lazy').setup({
   require 'plugins.surround', -- adds gitsigns recommend keymaps
   require 'plugins.multi', -- adds gitsigns recommend keymaps
   require 'plugins.tree', -- adds gitsigns recommend keymaps
-  require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
+  require 'plugins.zen',
+  --require 'plugins.theme-current',
   -- require 'plugins.theme-poimandresg', -- adds gitsigns recommend keymaps
   -- /030 neo-tree.lua
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.

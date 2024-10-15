@@ -5,6 +5,7 @@ return {
   require 'plugins.health',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'plugins.zen',
 
   -- require 'plugins.tailwind',
   -- require 'plugins.flutter', -- adds gitsigns recommend keymaps
@@ -14,7 +15,10 @@ return {
   require 'plugins.multi', -- adds gitsigns recommend keymaps
   require 'plugins.obsidian',
   require 'plugins.tree', -- adds gitsigns recommend keymaps
-  -- require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
-  -- require 'plugins.theme-poimandresg', -- adds gitsigns recommend keymaps
+  require 'plugins.theme-moonlight', -- adds gitsigns recommend keymaps
+  require 'plugins.theme-nightfox', -- adds gitsigns recommend keymaps
+
+  require 'plugins.theme-current',
+  require 'plugins.theme-poimandresg', -- adds gitsigns recommend keymaps
   -- /030 neo-tree.lua
 }

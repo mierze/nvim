@@ -1,0 +1,21 @@
+{
+  "aerial.nvim": ["stevearc/aerial.nvim"],
+  "catppuccin": ["catppuccin/nvim"],
+  "cmp-nvim-lsp": ["hrsh7th/cmp-nvim-lsp"],
+  "conform.nvim": ["stevearc/conform.nvim"],
+  "harpoon": ["ThePrimeagen/harpoon", "harpoon2"],
+  "lualine.nvim": ["nvim-lualine/lualine.nvim"],
+  "mini.nvim": ["nvim-mini/mini.nvim"],
+  "nvim-cmp": ["hrsh7th/nvim-cmp"],
+  "nvim-lspconfig": ["neovim/nvim-lspconfig"],
+  "nvim-treesitter": ["nvim-treesitter/nvim-treesitter", "main"],
+  "nvim-web-devicons": ["nvim-tree/nvim-web-devicons"],
+  "obsidian": ["obsidian-nvim/obsidian.nvim"],
+  "oil.nvim": ["stevearc/oil.nvim"],
+  "plenary": ["nvim-lua/plenary.nvim"],
+  "pounce.nvim": ["rlane/pounce.nvim"],
+  "rainbow-delimiters.nvim": ["HiPhish/rainbow-delimiters.nvim"],
+  "rust.vim": ["rust-lang/rust.vim"],
+  "vim-visual-multi": ["mg979/vim-visual-multi"],
+  "zen-mode.nvim": ["folke/zen-mode.nvim"]
+}

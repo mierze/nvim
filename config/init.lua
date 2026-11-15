@@ -1,0 +1,9 @@
+require("profile_settings")
+------------------------
+------N--V--I--M--------
+require("./options")
+require("./plugins")
+require("./keybinds")
+require("./actions")
+require("./colors")
+require("./style")
